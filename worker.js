@@ -1,3 +1,15 @@
+/**
+ *  QR Code Generator Telegram Bot
+ *  ---------------------------------
+ *  Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
+ *
+ *  A serverless QR generator running on Cloudflare Workers.
+ *  Feel free to fork, modify, and share!
+ */
+
+
+
+
 // Enhanced QR Code Generator Telegram Bot - Fixed Markdown Parsing
 const TELEGRAM_API_BASE = "https://api.telegram.org/bot";
 
@@ -42,7 +54,7 @@ async function isUrlReachable(url, timeoutMs = 4000) {
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
     const response = await fetch(url, { method: 'HEAD', signal: controller.signal });
     clearTimeout(timeoutId);
-    return response.ok;
+    return response.ok;// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
   } catch {
     return false;
   }
@@ -105,7 +117,7 @@ function parseCommand(text) {
   }
   return { size, content };
 }
-
+// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
 export default {
   async fetch(request, env, ctx) {
     const token = env.TELEGRAM_BOT_TOKEN;
@@ -144,7 +156,7 @@ export default {
             await callTelegramApi(token, "sendMessage", {
               chat_id: chatId,
               text: "Send me any text to generate a QR code\\.",
-              parse_mode: "MarkdownV2",
+              parse_mode: "MarkdownV2",// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
             });
           }
           return new Response("OK", { status: 200 });
@@ -193,7 +205,7 @@ export default {
               parse_mode: "MarkdownV2",
             });
             return new Response("OK", { status: 200 });
-          }
+          }// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
 
           let size = 300;
           let content = text;
@@ -216,7 +228,7 @@ export default {
             chat_id: chatId,
             action: "upload_photo",
           });
-
+// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
           let qrUrl = null;
           let providerUsed = null;
           for (let i = 0; i < QR_APIS.length; i++) {
@@ -273,7 +285,7 @@ export default {
               reply_markup: inlineKeyboard,
             });
           }
-
+// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
           if (result.ok) {
             await incrementTotalCount(env);
             await incrementUserCount(env, userId);
@@ -293,7 +305,7 @@ export default {
         return new Response("Error", { status: 500 });
       }
     }
-
+// Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
     if (request.method === "GET") {
       if (url.pathname === "/set-webhook") {
         const workerUrl = `${url.protocol}//${url.hostname}`;
@@ -302,7 +314,7 @@ export default {
         return new Response(JSON.stringify(result, null, 2), {
           headers: { "Content-Type": "application/json" },
         });
-      }
+      } // Made with 💖 by [pavnxet](https://github.com/pavnxet/qr-telegram-bot)
       return new Response("Enhanced QR Bot is running.", { status: 200 });
     }
 
